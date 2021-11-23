@@ -1,5 +1,7 @@
 import _ from 'lodash'
 
+import './style.css';
+
 window.addEventListener('load', function () {
     let element = document.querySelector('.main')
     let element2 = document.createElement("h1")

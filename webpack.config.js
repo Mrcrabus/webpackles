@@ -1,12 +1,13 @@
-const path = require("path");
+let path = require('path');
+let MiniCssExtractPlugin = require('mini-css-extract-plugin');
+
 let conf = {
     entry: './src/index.js',
     output: {
-        path: path.resolve(__dirname, "dist"),
-        filename: "index_bundle.js",
-        publicPath: "dist/"
+        path: path.resolve(__dirname, './dist'),
+        filename: 'main.js',
+        publicPath: '/dist/'
     },
-
     devServer: {
         overlay: true
     },
@@ -14,18 +15,25 @@ let conf = {
         rules: [
             {
                 test: /\.js$/,
-                loader: "babel-loader",
-                exclude: "/node_module/",
+                loader: 'babel-loader',
+                exclude: '/node_modules/'
+            },
+            {
+                test: /\.css$/,
+                use: [MiniCssExtractPlugin.loader, 'css-loader']
             }
         ]
     },
-
+    plugins: [
+        new MiniCssExtractPlugin({
+            filename: 'main.css'
+        })
+    ]
 };
 
 module.exports = (env, options) => {
     let isProd = options.mode === 'production';
-
-    conf.devtool = isProd ? false : 'eval-source-map'
-
+    conf.devtool = isProd ? false : 'eval-cheap-module-source-map';
+    conf.target = isProd ? 'browserslist' : 'web';
     return conf;
 }
