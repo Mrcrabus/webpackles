@@ -1,18 +1,13 @@
-import _ from 'lodash'
+import regeneratorRuntime from "regenerator-runtime";
+import * as Requests from './requests'
 
-import './style.css';
+window.regeneratorRuntime = regeneratorRuntime;
 
-window.addEventListener('load', function () {
-    let element = document.querySelector('.main')
-    let element2 = document.createElement("h1")
-    let array = [1, 2, 3, 4, 5, 6]
-
-    _.chunk(array)
-
-    console.log(array)
-    element2.innerHTML = "Hi, there"
-    console.log(element2)
-
-    element.innerHTML = "<h1>Hello</h1>"
-    document.body.insertBefore(element2, element)
-})
+(async () => {
+    try {
+        await Requests.auth("a07797c659bd4c2b200d2f48c270140b", "12345")
+        await Requests.all()
+    } catch (e) {
+        window.console.log(e)
+    }
+})();

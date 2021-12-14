@@ -1,3 +1,5 @@
+/* globals __dirname module*/
+
 let path = require('path');
 let MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
@@ -8,19 +10,13 @@ let conf = {
         filename: 'main.js',
         publicPath: '/dist/'
     },
-    devServer: {
-        overlay: true
-    },
+
     module: {
         rules: [
             {
                 test: /\.js$/,
                 loader: 'babel-loader',
                 exclude: '/node_modules/'
-            },
-            {
-                test: /\.css$/,
-                use: [MiniCssExtractPlugin.loader, 'css-loader']
             }
         ]
     },
@@ -28,7 +24,17 @@ let conf = {
         new MiniCssExtractPlugin({
             filename: 'main.css'
         })
-    ]
+    ],
+    devServer: {
+        proxy: {
+            '/js-hw5-api/**': {
+                target: 'http://faceprog.ru',
+                secure: false,
+                changeOrigin: true
+            }
+        }
+    }
+
 };
 
 module.exports = (env, options) => {
