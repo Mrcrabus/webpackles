@@ -10,22 +10,20 @@ export function auth(login, password) {
     body.append('password', password);
 
     return request('/js-hw5-api/auth.php', {
-        method: 'POST', body
+        method: 'POST',
+        body
     })
 }
 
 
-let token = auth(login, password).success.token
-
-
 export function all() {
-    return request('/js-hw5-api/articles.php', {
+    return request('/js-hw5-api/auth.php', {
         method: "GET"
     })
 }
 
 
-export function add(title, content) {
+export async function add(title, content) {
     let body = new FormData();
     body.append('title', title)
     body.append('content', content)
@@ -33,7 +31,17 @@ export function add(title, content) {
     return request('/js-hw5-api/articles.php', {
         method: "POST",
         headers: {
-            Authorization: token
+            Authorization: await auth(login, password)
+        }
+    })
+}
+
+export async function remove(id) {
+
+    return request(`'/js-hw5-api/articles.php'?id=${id}`, {
+        method: "DELETE",
+        headers: {
+            Authorization: await auth(login, password)
         }
     })
 }

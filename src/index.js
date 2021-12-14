@@ -1,13 +1,17 @@
 import regeneratorRuntime from "regenerator-runtime";
-import * as Requests from './requests'
 
 window.regeneratorRuntime = regeneratorRuntime;
+import * as Request from './requests'
 
 (async () => {
     try {
-        await Requests.auth("a07797c659bd4c2b200d2f48c270140b", "12345")
-        await Requests.all()
+        // let auth = await Request.auth('a07797c659bd4c2b200d2f48c270140b', '12345')
+        //     .then((res) => window.console.log(res))
+        let all = await Request.all().then((res) => window.console.log(res));
+        let add = await Request.add('Hello', 'world').then((res) => window.console.log(res))
+
     } catch (e) {
-        window.console.log(e)
+        window.console.log('error!');
+        window.console.log(e);
     }
 })();
