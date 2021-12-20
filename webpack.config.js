@@ -4,7 +4,7 @@ let path = require('path');
 let MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 let conf = {
-    entry: './src/index.js',
+    entry: './src/main.js',
     output: {
         path: path.resolve(__dirname, './dist'),
         filename: 'main.js',
@@ -27,7 +27,7 @@ let conf = {
     ],
     devServer: {
         proxy: {
-            '/js-hw5-api/**': {
+            '/js-ra-tokens-api/**': {
                 target: 'http://faceprog.ru',
                 secure: false,
                 changeOrigin: true
